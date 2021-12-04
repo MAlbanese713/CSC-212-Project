@@ -1,0 +1,213 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+//GUI Windows Form format in progress, implementing both algorithms (changedRabin-Karp to C#)
+
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            //Textbox to input string to test
+        }
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            //Textbox to input pattern to test against previous string
+        }
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            //Textbox used for output of the search
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            //if this button is checked, and then the Search button is clicked, run Rabin-Karp algorithm with input string and pattern
+            //check to see if theres a string, if it is empty or not with error checking
+            if (/*button is checked*/) {
+                //Emory Salaun, CSC212, 12/1/2021
+                //Rabin-Karp Implementation
+
+                //Only used for initialization
+                int hash(string str)
+                {
+
+                    int hash1 = 0;
+
+                    int len = str.Length;
+
+                    for (int i = 0; i < len; i++)
+                    {
+                        hash1 += (int)str[i];
+                    }
+                    return hash1;
+                }
+
+                int RabinKarp(string str, string pat) {
+
+                    //Hashes the pattern for comparison
+                    int h_pat = hash(pat);
+
+                    int m = pat.Length;
+
+                    //Initializes the hashing on position 0
+                    int h_str = hash(str.Substring(0, m));
+
+                    for (int i = 0; i < str.Length - pat.Length + 1; i++) {
+                        if (i != 0) {
+                            //Applies a rolling hash, subtracting the left letter, and adding the right letter
+                            h_str += (int)str[i + m - 1];
+                            h_str -= (int)str[i - 1]; }
+                        //std::cout << "Hash("<< str.substr(i, m)<<")"  << h_str << std::endl;
+
+                        //If both hashes are equal, then check for similarity
+                        if (h_pat == h_str) {
+                            //If all letters are the same, return position.
+                            if (str.Substring(i, m) == pat) {
+                                return i;
+                            }
+                        }
+                    }
+                    //If not found, return -1;
+                    return -1;
+                }
+
+                int main()
+                {
+
+                    //The string you want to search for the pattern
+                    string str = textBox2.Text;
+
+                    //The pattern you are searching for
+                    string pat = textBox1.Text;
+
+                    int result = RabinKarp(str, pat);
+
+                    if (result != -1)
+                    {
+                        Console.WriteLine(" " + pat + " found at position " + result);
+                    }
+                    else
+                    {
+                        Console.WriteLine(" " + pat + " not found.");
+                    }
+                    return 0;
+                }
+            }
+        }
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            //if this button is checked, and then the Search button is clicked, run Boyer-Moore algorithm with input string and pattern
+            //check to see if theres a string, if it is empty or not with error checking
+
+            if (/*button is checked*/ ) {
+                //Code obtained from https://www.geeksforgeeks.org/boyer-moore-algorithm-for-pattern-searching/
+                int NO_OF_CHARS = 256;
+
+                //A utility function to get maximum of two integers 
+                int max(int a, int b) { return (a > b) ? a : b; }
+
+                //The preprocessing function for Boyer Moore's 
+                //bad character heuristic 
+                void badCharHeuristic(char[] str, int size, int[] badchar)
+                {
+                    int i;
+
+                    // Initialize all occurrences as -1 
+                    for (i = 0; i < NO_OF_CHARS; i++)
+                        badchar[i] = -1;
+
+                    // Fill the actual value of last occurrence 
+                    // of a character 
+                    for (i = 0; i < size; i++)
+                        badchar[(int)str[i]] = i;
+                }
+
+                /* A pattern searching function that uses Bad 
+                Character Heuristic of Boyer Moore Algorithm */
+                void search(char[] txt, char[] pat)
+                {
+                    int m = pat.Length;
+                    int n = txt.Length;
+
+                    int[] badchar = new int[NO_OF_CHARS];
+
+                    /* Fill the bad character array by calling 
+                        the preprocessing function badCharHeuristic() 
+                        for given pattern */
+                    badCharHeuristic(pat, m, badchar);
+
+                    int s = 0; // s is shift of the pattern with 
+                               // respect to text 
+                    while (s <= (n - m))
+                    {
+                        int j = m - 1;
+
+                        /* Keep reducing index j of pattern while 
+                            characters of pattern and text are 
+                            matching at this shift s */
+                        while (j >= 0 && pat[j] == txt[s + j])
+                        {
+                            j--;
+                        }
+
+                        /* If the pattern is present at current 
+                            shift, then index j will become -1 after 
+                            the above loop */
+                        if (j < 0)
+                        {
+                            Console.WriteLine("Patterns occur at shift = " + s);
+
+                            /* Shift the pattern so that the next 
+                                character in text aligns with the last 
+                                occurrence of it in pattern. 
+                                The condition s+m < n is necessary for 
+                                the case when pattern occurs at the end 
+                                of text */
+                            s += (s + m < n) ? m - badchar[txt[s + m]] : 1;
+
+                        }
+
+                        else
+                        {
+                            /* Shift the pattern so that the bad character 
+                                in text aligns with the last occurrence of 
+                                it in pattern. The max function is used to 
+                                make sure that we get a positive shift. 
+                                We may get a negative shift if the last 
+                                occurrence of bad character in pattern 
+                                is on the right side of the current 
+                                character. */
+                            s += max(1, j - badchar[txt[s + j]]);
+                        }
+                    }
+                }
+
+                /* Driver program to test above function */
+                void Main()
+                {
+                    //convert from char to string?
+                    string txt = textBox1.Text;
+                    string pat = textBox2.Text;
+                    /*char[] txt = "ABAAABCD".ToCharArray();
+                    char[] pat = "ABC".ToCharArray();*/
+                    search(txt, pat);
+                }
+            }
+        }
+
+    }
+}
