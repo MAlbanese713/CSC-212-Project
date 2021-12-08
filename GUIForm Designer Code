@@ -1,0 +1,162 @@
+namespace WindowsFormsApp1
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.stringIn = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.patternIn = new System.Windows.Forms.TextBox();
+            this.radioRabin = new System.Windows.Forms.RadioButton();
+            this.radioBoyer = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.output = new System.Windows.Forms.TextBox();
+            this.buttonStart = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // stringIn
+            // 
+            this.stringIn.Location = new System.Drawing.Point(101, 215);
+            this.stringIn.Multiline = true;
+            this.stringIn.Name = "stringIn";
+            this.stringIn.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.stringIn.Size = new System.Drawing.Size(354, 115);
+            this.stringIn.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(136, 195);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(290, 17);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Enter the pattern you are searching through:";
+            // 
+            // patternIn
+            // 
+            this.patternIn.Location = new System.Drawing.Point(101, 50);
+            this.patternIn.Multiline = true;
+            this.patternIn.Name = "patternIn";
+            this.patternIn.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.patternIn.Size = new System.Drawing.Size(354, 107);
+            this.patternIn.TabIndex = 0;
+            // 
+            // radioRabin
+            // 
+            this.radioRabin.AutoSize = true;
+            this.radioRabin.Location = new System.Drawing.Point(637, 50);
+            this.radioRabin.Name = "radioRabin";
+            this.radioRabin.Size = new System.Drawing.Size(101, 21);
+            this.radioRabin.TabIndex = 2;
+            this.radioRabin.TabStop = true;
+            this.radioRabin.Text = "Rabin-Karp";
+            this.radioRabin.UseVisualStyleBackColor = true;
+            // 
+            // radioBoyer
+            // 
+            this.radioBoyer.AutoSize = true;
+            this.radioBoyer.Location = new System.Drawing.Point(637, 77);
+            this.radioBoyer.Name = "radioBoyer";
+            this.radioBoyer.Size = new System.Drawing.Size(111, 21);
+            this.radioBoyer.TabIndex = 3;
+            this.radioBoyer.TabStop = true;
+            this.radioBoyer.Text = "Boyer-Moore";
+            this.radioBoyer.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(136, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(253, 17);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Enter the string you want to search for:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(660, 195);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 17);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Output:";
+            // 
+            // output
+            // 
+            this.output.Location = new System.Drawing.Point(547, 215);
+            this.output.Multiline = true;
+            this.output.Name = "output";
+            this.output.ReadOnly = true;
+            this.output.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.output.Size = new System.Drawing.Size(354, 107);
+            this.output.TabIndex = 7;
+            // 
+            // buttonStart
+            // 
+            this.buttonStart.Location = new System.Drawing.Point(445, 413);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(110, 47);
+            this.buttonStart.TabIndex = 8;
+            this.buttonStart.Text = "Start";
+            this.buttonStart.UseVisualStyleBackColor = true;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(949, 586);
+            this.Controls.Add(this.buttonStart);
+            this.Controls.Add(this.output);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.radioBoyer);
+            this.Controls.Add(this.radioRabin);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.patternIn);
+            this.Controls.Add(this.stringIn);
+            this.Name = "Form1";
+            this.Text = "String Search Algorithms GUI";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TextBox stringIn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox patternIn;
+        private System.Windows.Forms.RadioButton radioRabin;
+        private System.Windows.Forms.RadioButton radioBoyer;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox output;
+        private System.Windows.Forms.Button buttonStart;
+    }
+}
