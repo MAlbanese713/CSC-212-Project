@@ -132,3 +132,24 @@ namespace WindowsFormsApp1
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(949, 586);
             this.Controls.Add(this.buttonStart);
+            this.Controls.Add(this.stringIn);
+            this.Name = "Form1";
+            this.Text = "String Search Algorithms GUI";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TextBox stringIn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox patternIn;
+        private System.Windows.Forms.RadioButton radioRabin;
+        private System.Windows.Forms.RadioButton radioBoyer;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox output;
+        private System.Windows.Forms.Button buttonStart;
+    }
+}
