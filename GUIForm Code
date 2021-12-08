@@ -1,0 +1,175 @@
+using System;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        //Only used for initialization
+        int hash(string str1)
+        {
+            //Initializing string hash based off of the length
+            int hash1 = 0;
+
+            int len = str1.Length;
+
+            for (int i = 0; i < len; i++)
+            {
+                hash1 += (int)str1[i];
+            }
+            return hash1;
+        }
+
+        void RabinKarp(string str1, string pat1)
+        {
+            //Hashes the pattern for comparison
+            int h_pat = hash(pat1);
+
+            int m = pat1.Length;
+
+            //Initializes the hashing on position 0
+            int h_str = hash(str1.Substring(0, m));
+
+            for (int i = 0; i < str1.Length - pat1.Length + 1; i++)
+            {
+                if (i != 0)
+                {
+                    //Applies a rolling hash, subtracting the left letter, and adding the right letter
+                    h_str += (int)str1[i + m - 1];
+                    h_str -= (int)str1[i - 1];
+                }
+
+                //If both hashes are equal, then check for similarity
+                if (h_pat == h_str)
+                {
+                    //If all letters are the same, return position.
+                    if (str1.Substring(i, m) == pat1)
+                    {
+                        output.Text += " " + pat1 + " found at position " + i + "\r\n";
+                    }
+                }
+            }
+            //If not found, return -1;
+            if (output.Text == "")
+            {
+                output.Text = " " + pat1 + " not found.";
+            }
+        }
+            //Code obtained from https://www.geeksforgeeks.org/boyer-moore-algorithm-for-pattern-searching/
+            int NO_OF_CHARS = 256;
+
+            //A utility function to get maximum of two integers 
+            int max(int a, int b) { return (a > b) ? a : b; }
+
+            //The preprocessing function for Boyer Moore's 
+            //bad character heuristic 
+            void badCharHeuristic(char[] str, int size, int[] badchar)
+            {
+                int i;
+
+                // Initialize all occurrences as -1 
+                for (i = 0; i < NO_OF_CHARS; i++)
+                    badchar[i] = -1;
+
+                // Fill the actual value of last occurrence 
+                // of a character 
+                for (i = 0; i < size; i++)
+                    badchar[(int)str[i]] = i;
+            }
+
+            /* A pattern searching function that uses Bad 
+            Character Heuristic of Boyer Moore Algorithm */
+            void boyerSearch(char[] txt, char[] pat)
+            {
+                int m = pat.Length;
+                int n = txt.Length;
+
+                int[] badchar = new int[NO_OF_CHARS];
+
+                /* Fill the bad character array by calling 
+                    the preprocessing function badCharHeuristic() 
+                    for given pattern */
+                badCharHeuristic(pat, m, badchar);
+
+                int s = 0; // s is shift of the pattern with 
+                            // respect to text 
+                while (s <= (n - m))
+                {
+                    int j = m - 1;
+
+                    /* Keep reducing index j of pattern while 
+                        characters of pattern and text are 
+                        matching at this shift s */
+                    while (j >= 0 && pat[j] == txt[s + j])
+                    {
+                        j--;
+                    }
+
+                    /* If the pattern is present at current 
+                        shift, then index j will become -1 after 
+                        the above loop */
+                    if (j < 0)
+                    {
+                        //Console.WriteLine("Patterns occur at shift = " + s);
+                        output.Text += "Patterns occur at shift = " + s + "\r\n";
+
+                    /* Shift the pattern so that the next 
+                        character in text aligns with the last 
+                        occurrence of it in pattern. 
+                        The condition s+m < n is necessary for 
+                        the case when pattern occurs at the end 
+                        of text */
+                    s += (s + m < n) ? m - badchar[txt[s + m]] : 1;
+
+                    }
+
+                    else
+                    {
+                        /* Shift the pattern so that the bad character 
+                            in text aligns with the last occurrence of 
+                            it in pattern. The max function is used to 
+                            make sure that we get a positive shift. 
+                            We may get a negative shift if the last 
+                            occurrence of bad character in pattern 
+                            is on the right side of the current 
+                            character. */
+                        s += max(1, j - badchar[txt[s + j]]);
+                    }
+                }
+            }
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            if (stringIn.Text == "" || patternIn.Text == "")
+            {
+                patternIn.Text = "No string input, please input a string.";
+                stringIn.Text = "No string input, please input a string.";
+
+            }
+            else
+            {
+                output.Clear();
+                string txt = stringIn.Text;
+                char[] txt1 = txt.ToCharArray();
+                
+
+                string pat = patternIn.Text;
+                char[] pat1 = pat.ToCharArray();
+
+                if (radioRabin.Checked)
+                {
+                    RabinKarp(txt, pat);
+                }
+                if (radioBoyer.Checked)
+                {
+                    boyerSearch(txt1, pat1);
+                }
+            }
+        }
+    }
+}
