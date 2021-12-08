@@ -26,7 +26,7 @@ GUI Implementation:
 
 1. If Rabin-Karp and Boyer-Moore are not in C#, convert from cpp file to c# using cpp file implementations.
 2. If you want to use the pre-existing C# file translated for the GUI, skip step 1.
-3. Have Microsoft Visual Studio available for use (it is based off of Windows Forms in C#).
+3. Have Microsoft Visual Studio available for use with .NET library for C# installed (it is based off of Windows Forms in C#).
 4. Download and implement the 'GUIForm' file.
 5. Run the Visual Studio file.
 6. Select an algorithm on the form to run by selecting one of the radio buttons.
