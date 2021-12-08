@@ -1,0 +1,50 @@
+//Only used for initialization
+        int hash(string str1)
+        {
+            //Initializing string hash based off of the length
+            int hash1 = 0;
+
+            int len = str1.Length;
+
+            for (int i = 0; i < len; i++)
+            {
+                hash1 += (int)str1[i];
+            }
+            return hash1;
+        }
+
+        void RabinKarp(string str1, string pat1)
+        {
+            //Hashes the pattern for comparison
+            int h_pat = hash(pat1);
+
+            int m = pat1.Length;
+
+            //Initializes the hashing on position 0
+            int h_str = hash(str1.Substring(0, m));
+
+            for (int i = 0; i < str1.Length - pat1.Length + 1; i++)
+            {
+                if (i != 0)
+                {
+                    //Applies a rolling hash, subtracting the left letter, and adding the right letter
+                    h_str += (int)str1[i + m - 1];
+                    h_str -= (int)str1[i - 1];
+                }
+
+                //If both hashes are equal, then check for similarity
+                if (h_pat == h_str)
+                {
+                    //If all letters are the same, return position.
+                    if (str1.Substring(i, m) == pat1)
+                    {
+                        output.Text += " " + pat1 + " found at position " + i + "\r\n";
+                    }
+                }
+            }
+            //If not found, return -1;
+            if (output.Text == "")
+            {
+                output.Text = " " + pat1 + " not found.";
+            }
+        }
